@@ -1,3 +1,5 @@
+/* ========== RESET ========== */
+/* ========== RESET ========== */
 * {
   margin: 0;
   padding: 0;
@@ -7,14 +9,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  scroll-behavior: smooth;
-  font-family: 'Bebas Neue', sans-serif;
-  overflow-x: hidden;
+html {
   scroll-snap-type: y mandatory;
-  overflow-y: scroll;
-  height: 100vh;
+  height: 100%;
+  scroll-behavior: smooth;
 }
+
+body {
+  font-family: 'Bebas Neue', sans-serif;
+  scroll-behavior: smooth;
+  overflow-x: hidden; 
+  overflow-y: auto;
+  height: 100vh;
+  position: relative;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* DOT BACKGROUND */
 body::before {
   content: "";
   position: fixed;
@@ -22,13 +33,14 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 20px 20px; /* spacing between dots */
+  background-image: radial-gradient(rgba(255, 255, 255, 1) 1px, black 1px);
+  background-size: 40px 40px;
   pointer-events: none;
-  z-index: 1;
-  filter: blur(0.5px); /* slight blur */
+  z-index: 0;
+  filter: blur(0.5px);
 }
 
+/* VIGNETTE OVERLAY */
 body::after {
   content: "";
   position: fixed;
@@ -36,77 +48,23 @@ body::after {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: radial-gradient(
-    circle at center,
-    rgba(0, 0, 0, 0) 60%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
-  z-index: 2;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.3) 100%);
   pointer-events: none;
-  mix-blend-mode: multiply; /* smoothens over lighter dot bg */
+  z-index: 1;
+  mix-blend-mode: multiply;
 }
 
-
-section {
-  height: 100vh; /* Full viewport height */
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  font-size: 2rem;
-  color: white;
-  z-index: 5;
-}
-
-section:nth-child(1) {
- background: rgba(0, 0, 0, 0.9); /* Lander */
-}
-
-section:nth-child(2) {
-  background: rgba(0, 0, 0, 0.9); /* About - #111 with slight transparency */
-}
-
-section:nth-child(3) {
-  background: rgba(0, 0, 0, 0.9); /* Crew - #222 with slight transparency */
-}
-
-section:nth-child(4) {
-  background: rgba(0, 0, 0, 0.9); /* Contact - #333 with slight transparency */
-}
-
-
-
-section {
-  scroll-snap-align: start;
-}
-
-.Lander {
-  height: 100vh;
-  width: 100vw;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-areas:
-    "navbar navbar logo"
-    "quote  quote  work"
-    "quote  quote  work";
-  gap: 10px;
-  padding: 20px;
-  background: #111;
-}
+/* ========== GLOBAL NAVBAR FIX ========== */
 .navbar {
-  grid-area: navbar;
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  gap: clamp(8px, 4vw, 20px);
-  align-items: center;
-  position: absolute;
+  position: fixed;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(8px, 4vw, 20px);
+  background: transparent;
   z-index: 10;
 }
 
@@ -120,20 +78,67 @@ section {
   text-decoration: none;
   transition: all 0.2s ease-in-out;
 }
-
 .nav-button:hover {
   background: #eee;
   transform: scale(1.05);
 }
+.quote,
+.about-description,
+.crew-card,
+.contact-box {
+  box-shadow:
+    0 0 10px rgba(0, 200, 255, 0.4),
+    0 0 20px rgba(0, 200, 255, 0.3),
+    0 0 30px rgba(0, 200, 255, 0.2);
+}
 
+
+/* ========== UNIVERSAL SECTION STYLE ========== */
+section,
+.about-section,
+.crew-section,
+.contact-section {
+  scroll-snap-align: start;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-size: 2rem;
+  color: white;
+  position: relative;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* ========== LANDER ========== */
+.Lander {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas:
+    "navbar navbar logo"
+    "quote  quote  work"
+    "quote  quote  work";
+  gap: 10px;
+  padding: 20px;
+  height: 100vh;
+  width: 100vw;
+ background: rgba(0, 0, 0, 0.6);
+}
+
+
+/* ========== LOGO ========== */
 .logo {
   position: absolute;
   top: 5px;
   left: 5px;
-  background: transparent; /* if it's an image, remove background */
+  background: transparent;
   padding: 0.3rem 0.8rem;
-  font-size: clamp(0.8rem, 2vw, 1.2rem); /* responsive text size */
-  max-width: 120px;  /* restrict image width */
+  font-size: clamp(0.8rem, 2vw, 1.2rem);
+  max-width: 120px;
   height: auto;
   z-index: 100;
 }
@@ -143,6 +148,7 @@ section {
   display: block;
 }
 
+/* ========== QUOTE ========== */
 .quote {
   grid-area: quote;
   background: #ddd;
@@ -161,12 +167,14 @@ section {
 
 .button-bar {
   margin-top: 10px;
-  background: white;
+  background: transparent;
   border-radius: 8px;
   height: 30px;
   display: flex;
   align-items: center;
   padding: 5px;
+  max-width: 500px;
+  font-size: small;
   
 }
 
@@ -177,9 +185,10 @@ section {
   border-radius: 8px;
 }
 
+/* ========== WORK ========== */
 .work {
   grid-area: work;
-  background: #444;
+  background: transparent;
   border-radius: 10px;
   padding: 1rem;
   font-weight: bold;
@@ -187,23 +196,35 @@ section {
   align-items: center;
   justify-content: center;
   color: white;
-  aspect-ratio: 1 / 1; /* 🔥 this makes it a square */
-  height: 100%; /* fill vertical space from grid */
-  width: 100%;  /* fill horizontal space */
-  
+  position: relative;
+  left: -50px;
+  width: 100%;
+  max-width: 500px;   /* 🔥 control width */
+  height: 500px;       /* 🔥 let content define height */
+  aspect-ratio: unset; /* remove forced square */
 }
-.about-section {
-  height: 100vh;
-  width: 100vw;
-  background: rgba(0, 0, 0, 0.9);
+.work-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: 80px;
-  gap: 40px;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  gap: 10px;
 }
 
+
+/* ========== ABOUT ========== */
+.about-section {
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* 🔥 vertical centering */
+  gap: 40px; /* spacing between header & description */
+}
 .about-header {
   background: #ddd;
   color: black;
@@ -212,6 +233,7 @@ section {
   padding: 1rem 2rem;
   border-radius: 10px;
   text-align: center;
+  gap: 20px;
 }
 
 .about-description {
@@ -222,19 +244,10 @@ section {
   border-radius: 10px;
   font-size: 1.2rem;
   line-height: 1.6;
+  gap: 20px;
 }
 
-.crew-section {
-  height: 100vh;
-  width: 100vw;
-  background: #222;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 60px 40px;
-  gap: 40px;
-}
-
+/* ========== CREW ========== */
 .crew-header {
   background: #000;
   color: white;
@@ -258,17 +271,8 @@ section {
   background: #ddd;
   border-radius: 10px;
 }
-.contact-section {
-  height: 100vh;
-  width: 100vw;
-  background: #1e1e1e;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-}
 
+/* ========== CONTACT ========== */
 .contact-header {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.8rem;
@@ -288,4 +292,97 @@ section {
   height: 60px;
   background: #ddd;
   border-radius: 10px;
+}
+.slideshow-container {
+  position: relative;
+  width: 90%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.slide-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide-wrapper.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.slide {
+  width: 80%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.client-name {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+  position: relative;
+  
+}
+
+
+
+
+
+.client-name {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+  position: relative;
+  top: -100px;
+  
+}
+.slide-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slide-wrapper.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.slide {
+  width: 80%;
+  height: auto;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.client-name {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
 }

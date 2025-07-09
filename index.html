@@ -3,45 +3,96 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hypewave</title>
+
+    <!-- Fonts + Styles -->
     <link rel="stylesheet" href="styles.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
       rel="stylesheet"
     />
 
-    <title>Document</title>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   </head>
+
   <body>
+    <!-- NAVBAR -->
+    <div class="navbar">
+      <a href="#home" class="nav-button">Home</a>
+      <a href="#about" class="nav-button">About</a>
+      <a href="#crew" class="nav-button">Crew</a>
+      <a href="#contact" class="nav-button">Contact</a>
+    </div>
+
+    <!-- LANDER SECTION -->
     <section class="Lander" id="home">
-      <div class="navbar">
-        <a href="#home" class="nav-button">Home</a>
-        <a href="#about" class="nav-button">About</a>
-        <a href="#crew" class="nav-button">Crew</a>
-        <a href="#contact" class="nav-button">Contact</a>
+      <div class="logo">
+        <img src="images/hypewavelogo.png" alt="Hypewave Logo" />
       </div>
 
-      <div class="logo">
-        <img src="images/hypewavelogo.png" alt="" />
-      </div>
       <div class="quote">
         <p>
-          <strong>CREATING CINEMATIC EXPERIENCES.</strong><br />ONE FRAME AT A
-          TIME.
+          <strong>CREATING CINEMATIC EXPERIENCES.</strong><br />
+          ONE FRAME AT A TIME.
         </p>
         <div class="button-bar">
-          <div class="button"></div>
+          <p>setup in 📍Mumbai</p>
         </div>
       </div>
-      <div class="work">OUR WORK</div>
+
+      <div class="work">
+        <div class="slideshow-container">
+          <!-- Slide 1 -->
+          <div class="slide-wrapper active">
+            <img
+              src="images/SNG04-removebg-preview.png"
+              class="slide"
+              alt="SNG04"
+            />
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="slide-wrapper">
+            <img
+              src="images/Screenshot_2025-07-09_150010-removebg-preview.png"
+              class="slide"
+              alt="Yashraj"
+              style="border-radius: 16px; object-fit: contain"
+            />
+          </div>
+
+          <!-- Slide 3 (FIXED) -->
+          <div class="slide-wrapper">
+            <img
+              src="images/Screenshot 2025-07-09 150050.png"
+              class="slide"
+              alt="Karan Kanchan"
+              style="border-radius: 16px; object-fit: contain"
+            />
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- ABOUT SECTION -->
     <section class="about-section" id="about">
       <div class="about-header">ABOUT US</div>
       <div class="about-description">
-        Some description about your agency, team, goals, etc.
+        <strong style="font-size: larger">HypeWave Visuals</strong> is a
+        full-spectrum creative agency that brings visuals to life — whether it's
+        music videos, real estate promos, or cinematic brand films. We don’t
+        stick to one lane — <strong>we do it all, and we do it right.</strong>
+        <br /><br />
+        Born in the heart of Thane and now based in Mumbai, we’ve built our name
+        on versatility, storytelling, and raw execution. Every frame we shoot is
+        designed to leave a mark. Whether you're an artist, a business, or a
+        brand — <strong>if you’ve got a vision, we’ll make it real.</strong>
       </div>
     </section>
 
+    <!-- CREW SECTION -->
     <section class="crew-section" id="crew">
       <div class="crew-header">THE CREW</div>
       <div class="crew-grid">
@@ -53,6 +104,7 @@
       </div>
     </section>
 
+    <!-- CONTACT SECTION -->
     <section class="contact-section" id="contact">
       <div class="contact-header">WORK WITH US</div>
       <div class="contact-options">
@@ -62,5 +114,53 @@
         <div class="contact-box"></div>
       </div>
     </section>
+
+    <!-- Slide Logic -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const wrappers = document.querySelectorAll(
+          ".slideshow-container .slide-wrapper"
+        );
+        let current = 0;
+
+        setInterval(() => {
+          wrappers[current].classList.remove("active");
+          current = (current + 1) % wrappers.length;
+          wrappers[current].classList.add("active");
+        }, 3000);
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const wrappers = document.querySelectorAll(
+          ".slideshow-container .slide-wrapper"
+        );
+        let current = 0;
+        setInterval(() => {
+          wrappers[current].classList.remove("active");
+          current = (current + 1) % wrappers.length;
+          wrappers[current].classList.add("active");
+        }, 3000);
+
+        // GSAP scroll reveal
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.utils.toArray("section").forEach((section, index) => {
+          const direction = index % 2 === 0 ? -100 : 100;
+
+          gsap.from(section, {
+            opacity: 0,
+            x: direction,
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 80%",
+              toggleActions: "play none none none", // only plays once
+              once: true,
+            },
+          });
+        });
+      });
+    </script>
   </body>
 </html>
