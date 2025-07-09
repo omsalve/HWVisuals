@@ -127,7 +127,6 @@
       </div>
     </section>
 
-    <!-- Slide Logic -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         // === Slideshow logic ===
@@ -135,6 +134,9 @@
           ".slideshow-container .slide-wrapper"
         );
         let current = 0;
+
+        // 🔥 Initial display
+        wrappers[current].classList.add("active");
 
         setInterval(() => {
           wrappers[current].classList.remove("active");
@@ -166,13 +168,11 @@
         const splash = document.getElementById("splash");
         const audio = document.getElementById("glitch-audio");
 
-        // Play sound (user interaction might be needed for some browsers)
         audio.play().catch((e) => console.warn("Autoplay blocked:", e));
 
-        // Hide splash after 4s
         setTimeout(() => {
           splash.style.display = "none";
-          document.body.style.overflow = "auto"; // re-enable scroll
+          document.body.style.overflow = "auto";
         }, 4000);
       });
     </script>
