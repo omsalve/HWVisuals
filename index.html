@@ -18,6 +18,16 @@
   </head>
 
   <body>
+    <!-- Splash Screen -->
+    <div id="splash">
+      <div class="glitch-logo-wrapper">
+        <img
+          src="images/hypewavelogo.png"
+          alt="Hypewave Logo"
+          class="glitch-logo"
+        />
+      </div>
+    </div>
     <!-- NAVBAR -->
     <div class="navbar">
       <a href="#home" class="nav-button">Home</a>
@@ -80,11 +90,13 @@
     <section class="about-section" id="about">
       <div class="about-header">ABOUT US</div>
       <div class="about-description">
-        <strong style="font-size: larger">HypeWave Visuals</strong> is a
-        full-spectrum creative agency that brings visuals to life — whether it's
-        music videos, real estate promos, or cinematic brand films. We don’t
-        stick to one lane — <strong>we do it all, and we do it right.</strong>
-        <br /><br />
+        <strong style="font-size: larger; color: firebrick"
+          >HypeWave Visuals</strong
+        >
+        is a full-spectrum creative agency that brings visuals to life — whether
+        it's music videos, real estate promos, or cinematic brand films. We
+        don’t stick to one lane —
+        <strong>we do it all, and we do it right.</strong> <br /><br />
         Born in the heart of Thane and now based in Mumbai, we’ve built our name
         on versatility, storytelling, and raw execution. Every frame we shoot is
         designed to leave a mark. Whether you're an artist, a business, or a
@@ -118,6 +130,7 @@
     <!-- Slide Logic -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        // === Slideshow logic ===
         const wrappers = document.querySelectorAll(
           ".slideshow-container .slide-wrapper"
         );
@@ -128,20 +141,8 @@
           current = (current + 1) % wrappers.length;
           wrappers[current].classList.add("active");
         }, 3000);
-      });
 
-      document.addEventListener("DOMContentLoaded", () => {
-        const wrappers = document.querySelectorAll(
-          ".slideshow-container .slide-wrapper"
-        );
-        let current = 0;
-        setInterval(() => {
-          wrappers[current].classList.remove("active");
-          current = (current + 1) % wrappers.length;
-          wrappers[current].classList.add("active");
-        }, 3000);
-
-        // GSAP scroll reveal
+        // === GSAP Scroll Animations ===
         gsap.registerPlugin(ScrollTrigger);
 
         gsap.utils.toArray("section").forEach((section, index) => {
@@ -155,11 +156,24 @@
             scrollTrigger: {
               trigger: section,
               start: "top 80%",
-              toggleActions: "play none none none", // only plays once
+              toggleActions: "play none none none",
               once: true,
             },
           });
         });
+
+        // === Splash logic ===
+        const splash = document.getElementById("splash");
+        const audio = document.getElementById("glitch-audio");
+
+        // Play sound (user interaction might be needed for some browsers)
+        audio.play().catch((e) => console.warn("Autoplay blocked:", e));
+
+        // Hide splash after 4s
+        setTimeout(() => {
+          splash.style.display = "none";
+          document.body.style.overflow = "auto"; // re-enable scroll
+        }, 4000);
       });
     </script>
   </body>

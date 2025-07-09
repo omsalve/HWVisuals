@@ -18,12 +18,12 @@ html {
 body {
   font-family: 'Bebas Neue', sans-serif;
   scroll-behavior: smooth;
-  overflow-x: hidden; 
-  overflow-y: auto;
-  height: 100vh;
+  overflow-x: hidden;
   position: relative;
   background: rgba(0, 0, 0, 0.6);
+  min-height: 100vh;
 }
+
 
 /* DOT BACKGROUND */
 body::before {
@@ -52,6 +52,63 @@ body::after {
   pointer-events: none;
   z-index: 1;
   mix-blend-mode: multiply;
+}
+/* Splash screen */
+#splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeOut 1s ease 3s forwards;
+}
+
+.glitch-logo-wrapper {
+  position: relative;
+  width: 200px;
+  height: auto;
+  animation: glitch 1s linear;
+}
+
+.glitch-logo {
+  width: 100%;
+  filter: contrast(200%) brightness(120%);
+}
+
+/* Glitch effect keyframes */
+@keyframes glitch {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-2px, 2px);
+  }
+  20% {
+    transform: translate(2px, -2px);
+  }
+  30% {
+    transform: translate(-2px, -2px);
+  }
+  40% {
+    transform: translate(2px, 2px);
+  }
+  50% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Fade out animation */
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
 }
 
 /* ========== GLOBAL NAVBAR FIX ========== */
@@ -87,7 +144,7 @@ body::after {
 .crew-card,
 .contact-box {
   box-shadow:
-    0 0 10px rgba(0, 200, 255, 0.4),
+    0 0 10px rgba(0, 200, 255, 0.4),  
     0 0 20px rgba(0, 200, 255, 0.3),
     0 0 30px rgba(0, 200, 255, 0.2);
 }
@@ -115,6 +172,7 @@ section,
 
 /* ========== LANDER ========== */
 .Lander {
+  
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
@@ -385,4 +443,123 @@ section,
   text-align: center;
   font-family: 'Bebas Neue', sans-serif;
   letter-spacing: 1px;
+}
+/* ======= RESPONSIVE DESIGN ======= */
+@media (max-width: 768px) {
+  /* Navbar */
+  .navbar {
+    top: 10px;
+    gap: 8px;
+    font-size: 0.9rem;
+    padding: 0 10px;
+    align-items: center;
+  }
+
+  .nav-button {
+    padding: 6px 12px;
+    font-size: 1rem;
+    align-items: center;
+  }
+
+  /* Lander layout switch */
+  .Lander {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .logo {
+    position: static;
+    max-width: 80px;
+    margin-bottom: 10px;
+  }
+
+  .logo img {
+    width: 80px;
+    height: auto;
+  }
+
+  .quote {
+    font-size: 1.5rem;
+    margin: 0;
+    width: 100%;
+  }
+
+  .button-bar {
+    height: auto;
+    padding: 5px 10px;
+    justify-content: center;
+  }
+
+  .button {
+    width: 60px;
+    height: 20px;
+  }
+
+  .work {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin-top: 20px;
+  }
+
+  .slideshow-container {
+    width: 100%;
+    height: auto;
+  }
+
+  .slide {
+    max-height: 200px;
+    width: 100%;
+    object-fit: contain;
+  }
+
+  .client-name {
+    font-size: 1rem;
+    top: 0;
+  }
+
+  /* About Section */
+  .about-description {
+    width: 100%;
+    font-size: 1rem;
+    padding: 1.5rem;
+  }
+
+  /* Crew Section */
+  .crew-grid {
+    gap: 10px;
+  }
+
+  .crew-card {
+    width: 120px;
+    height: 180px;
+  }
+
+  /* Contact */
+  .contact-options {
+    gap: 10px;
+  }
+
+  .contact-box {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Splash logo */
+  #splash .glitch-logo-wrapper,
+  .splash-content {
+    width: 80%;
+  }
+
+  .splash-logo {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+  }
 }
