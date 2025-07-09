@@ -1,0 +1,291 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  letter-spacing: 0.5px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  scroll-behavior: smooth;
+  font-family: 'Bebas Neue', sans-serif;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  height: 100vh;
+}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px; /* spacing between dots */
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(0.5px); /* slight blur */
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0) 60%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+  mix-blend-mode: multiply; /* smoothens over lighter dot bg */
+}
+
+
+section {
+  height: 100vh; /* Full viewport height */
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-size: 2rem;
+  color: white;
+  z-index: 5;
+}
+
+section:nth-child(1) {
+ background: rgba(0, 0, 0, 0.9); /* Lander */
+}
+
+section:nth-child(2) {
+  background: rgba(0, 0, 0, 0.9); /* About - #111 with slight transparency */
+}
+
+section:nth-child(3) {
+  background: rgba(0, 0, 0, 0.9); /* Crew - #222 with slight transparency */
+}
+
+section:nth-child(4) {
+  background: rgba(0, 0, 0, 0.9); /* Contact - #333 with slight transparency */
+}
+
+
+
+section {
+  scroll-snap-align: start;
+}
+
+.Lander {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-areas:
+    "navbar navbar logo"
+    "quote  quote  work"
+    "quote  quote  work";
+  gap: 10px;
+  padding: 20px;
+  background: #111;
+}
+.navbar {
+  grid-area: navbar;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  gap: clamp(8px, 4vw, 20px);
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.nav-button {
+  background: #ccc;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-button:hover {
+  background: #eee;
+  transform: scale(1.05);
+}
+
+.logo {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: transparent; /* if it's an image, remove background */
+  padding: 0.3rem 0.8rem;
+  font-size: clamp(0.8rem, 2vw, 1.2rem); /* responsive text size */
+  max-width: 120px;  /* restrict image width */
+  height: auto;
+  z-index: 100;
+}
+.logo img {
+  width: clamp(20px, 10vw, 120px);
+  height: auto;
+  display: block;
+}
+
+.quote {
+  grid-area: quote;
+  background: #ddd;
+  color: #000;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 100px;
+  max-height: 200px;
+  min-height: 200px;
+  height: clamp(150px, 25vh, 200px);
+}
+
+.button-bar {
+  margin-top: 10px;
+  background: white;
+  border-radius: 8px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  
+}
+
+.button {
+  width: 80px;
+  height: 100%;
+  background: black;
+  border-radius: 8px;
+}
+
+.work {
+  grid-area: work;
+  background: #444;
+  border-radius: 10px;
+  padding: 1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  aspect-ratio: 1 / 1; /* 🔥 this makes it a square */
+  height: 100%; /* fill vertical space from grid */
+  width: 100%;  /* fill horizontal space */
+  
+}
+.about-section {
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 80px;
+  gap: 40px;
+}
+
+.about-header {
+  background: #ddd;
+  color: black;
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.about-description {
+  background: #ddd;
+  color: black;
+  padding: 2rem;
+  width: 80%;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.crew-section {
+  height: 100vh;
+  width: 100vw;
+  background: #222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 40px;
+  gap: 40px;
+}
+
+.crew-header {
+  background: #000;
+  color: white;
+  font-size: 1.8rem;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-family: 'Bebas Neue', sans-serif;
+  text-align: center;
+}
+
+.crew-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.crew-card {
+  width: 150px;
+  height: 230px;
+  background: #ddd;
+  border-radius: 10px;
+}
+.contact-section {
+  height: 100vh;
+  width: 100vw;
+  background: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.contact-header {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  color: white;
+  text-align: center;
+}
+
+.contact-options {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.contact-box {
+  width: 60px;
+  height: 60px;
+  background: #ddd;
+  border-radius: 10px;
+}
